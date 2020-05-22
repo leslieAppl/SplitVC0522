@@ -16,15 +16,18 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
+        
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +57,7 @@ class MasterViewController: UITableViewController {
         }
     }
 
-    // MARK: - Table View
+    // MARK: - Table View Data Source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -77,14 +80,29 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        tableView.isEditing = true
         if editingStyle == .delete {
             objects.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
+        else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+            objects.append(NSDate())
+            let indexPath = IndexPath(row: objects.count - 1, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+        
+        
     }
-
-
+    
+    //MARK: - Table View Delegate
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath.row == objects.count - 1 {
+            return .insert
+        }
+        return .delete
+    }
+    
 }
 
