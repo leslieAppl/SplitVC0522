@@ -28,10 +28,15 @@ class DetailViewController: UIViewController {
     }
 
     func configureView2() {
-        let data = AppData.items2[selected]
-        bookCover.image = UIImage(named: data)
-        bookTitle.text = AppData.itemsData[data]?[0]
-        bookAuthor.text = AppData.itemsData[data]?[1]
+        if selected == nil && !AppData.items2.isEmpty {
+            selected = 0
+        }
+        if selected != nil {        
+            let data = AppData.items2[selected]
+            bookCover.image = UIImage(named: data)
+            bookTitle.text = AppData.itemsData[data]?[0]
+            bookAuthor.text = AppData.itemsData[data]?[1]
+        }
     }
     
     override func viewDidLoad() {
