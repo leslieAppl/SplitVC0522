@@ -37,8 +37,9 @@ class MasterViewController: UITableViewController {
     @objc
     func insertNewObject(_ sender: Any) {
         AppData.items2.append(NSDate().description)
-        let indexPath = IndexPath(row: AppData.items2.count - 1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+//bug        let indexPath = IndexPath(row: AppData.items2.count - 1, section: 0)
+//bug        tableView.insertRows(at: [indexPath], with: .automatic)
+        tableView.reloadData()
     }
 
     // MARK: - Segues
@@ -102,11 +103,11 @@ class MasterViewController: UITableViewController {
         if editingStyle == .delete {
             if indexPath.row < AppData.items2.count {
                 AppData.items2.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+//bug                tableView.deleteRows(at: [indexPath], with: .fade)
             }
             else {
                 objects.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+//bug                tableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
         else if editingStyle == .insert {
@@ -114,7 +115,7 @@ class MasterViewController: UITableViewController {
             insertNewObject(self)
         }
         
-        
+        tableView.reloadData()
     }
         
     //MARK: - Table View Delegate
