@@ -37,3 +37,4 @@
             }
         }
 
+## Setting Detail View By Default
