@@ -27,7 +27,6 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,35 +73,38 @@ class MasterViewController: UITableViewController {
         return cell
     }
 
+    //MARK: - Table View Handle Edit Mode
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        tableView.isEditing = true
         if editingStyle == .delete {
             objects.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
         }
         else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-            objects.append(NSDate())
-            let indexPath = IndexPath(row: objects.count - 1, section: 0)
-            tableView.insertRows(at: [indexPath], with: .automatic)
+            insertNewObject(self)
         }
         
         
     }
-    
+        
     //MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if indexPath.row == objects.count - 1 {
+        if indexPath.row == 0 {
             return .insert
         }
-        return .delete
+        else {
+            return .delete
+        }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("did select row at: \(indexPath.row)")
+    }
 }
 
