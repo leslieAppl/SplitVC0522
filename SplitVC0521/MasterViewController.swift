@@ -36,8 +36,8 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
+        AppData.items2.append(NSDate().description)
+        let indexPath = IndexPath(row: AppData.items2.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
 
@@ -46,12 +46,23 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                detailViewController = controller
+                
+                if indexPath.row < AppData.items2.count {
+                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                    controller.navigationItem.leftItemsSupplementBackButton = true
+                    detailViewController = controller
+                    controller.selected = indexPath.row
+                }
+                else {
+                    let object = objects[indexPath.row] as! NSDate
+                    controller.detailItem = object
+                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                    controller.navigationItem.leftItemsSupplementBackButton = true
+                    detailViewController = controller
+                }
+                
+                
             }
         }
     }
@@ -63,14 +74,22 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return AppData.items2.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
-        return cell
+        
+        if indexPath.row < AppData.items2.count {
+            let item = AppData.items2[indexPath.row]
+            cell.textLabel?.text = AppData.itemsData[item]?[0]
+            return cell
+        }
+        else {
+            let object = objects[indexPath.row] as! NSDate
+            cell.textLabel!.text = object.description
+            return cell
+        }
     }
 
     //MARK: - Table View Handle Edit Mode
@@ -81,9 +100,14 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            objects.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.reloadData()
+            if indexPath.row < AppData.items2.count {
+                AppData.items2.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            else {
+                objects.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
         else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

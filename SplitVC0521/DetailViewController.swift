@@ -16,6 +16,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var bookTitle: UILabel!
     @IBOutlet weak var bookAuthor: UILabel!
     
+    var selected: Int!
+    
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = detailItem {
@@ -25,10 +27,19 @@ class DetailViewController: UIViewController {
         }
     }
 
+    func configureView2() {
+        let data = AppData.items2[selected]
+        bookCover.image = UIImage(named: data)
+        bookTitle.text = AppData.itemsData[data]?[0]
+        bookAuthor.text = AppData.itemsData[data]?[1]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configureView()
+        configureView2()
+        
     }
 
     var detailItem: NSDate? {

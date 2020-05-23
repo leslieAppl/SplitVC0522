@@ -14,6 +14,7 @@
 		CEA0008924764A1A00DC5134 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA0008724764A1A00DC5134 /* Main.storyboard */; };
 		CEA0008B24764A2000DC5134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA0008A24764A2000DC5134 /* Assets.xcassets */; };
 		CEA0008E24764A2000DC5134 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEA0008C24764A2000DC5134 /* LaunchScreen.storyboard */; };
+		CEA000982479031D00DC5134 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA000972479031D00DC5134 /* ApplicationData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		CEA0008A24764A2000DC5134 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEA0008D24764A2000DC5134 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEA0008F24764A2000DC5134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEA000972479031D00DC5134 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				CEA0007F24764A1A00DC5134 /* AppDelegate.swift */,
 				CEA0008124764A1A00DC5134 /* SceneDelegate.swift */,
+				CEA000972479031D00DC5134 /* ApplicationData.swift */,
 				CEA0008324764A1A00DC5134 /* MasterViewController.swift */,
 				CEA0008524764A1A00DC5134 /* DetailViewController.swift */,
 				CEA0008724764A1A00DC5134 /* Main.storyboard */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA000982479031D00DC5134 /* ApplicationData.swift in Sources */,
 				CEA0008024764A1A00DC5134 /* AppDelegate.swift in Sources */,
 				CEA0008224764A1A00DC5134 /* SceneDelegate.swift in Sources */,
 				CEA0008424764A1A00DC5134 /* MasterViewController.swift in Sources */,
