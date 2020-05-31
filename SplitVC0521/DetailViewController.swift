@@ -37,13 +37,17 @@ class DetailViewController: UIViewController {
             bookTitle.text = AppData.itemsData[data]?[0]
             bookAuthor.text = AppData.itemsData[data]?[1]
         }
+        
+        let button = splitViewController?.displayModeButtonItem
+        navigationItem.leftBarButtonItem = button
+        navigationItem.leftItemsSupplementBackButton = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         configureView()
-        configureView2()
+//        configureView2()
         
     }
 

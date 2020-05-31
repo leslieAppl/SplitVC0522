@@ -17,8 +17,10 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        splitViewController?.delegate = self
+        
         // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
+//        navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
@@ -27,6 +29,8 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        splitViewController?.preferredDisplayMode = .allVisible
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -37,8 +41,8 @@ class MasterViewController: UITableViewController {
     @objc
     func insertNewObject(_ sender: Any) {
         AppData.items2.append(NSDate().description)
-//bug        let indexPath = IndexPath(row: AppData.items2.count - 1, section: 0)
-//bug        tableView.insertRows(at: [indexPath], with: .automatic)
+        let indexPath = IndexPath(row: AppData.items2.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.reloadData()
     }
 
@@ -128,8 +132,22 @@ class MasterViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("did select row at: \(indexPath.row)")
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("did select row at: \(indexPath.row)")
+//        let mode = splitViewController?.displayMode
+//        if mode == .primaryOverlay {
+//            splitViewController?.preferredDisplayMode = .primaryHidden
+//        }
+//    }
+//
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        splitViewController?.preferredDisplayMode = .automatic
+//    }
 }
 
+extension MasterViewController: UISplitViewControllerDelegate {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return false
+    }
+}
