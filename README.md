@@ -1,4 +1,4 @@
-# Split View Controller
+# SplitViewController
 
 ## Split View Controller
 
